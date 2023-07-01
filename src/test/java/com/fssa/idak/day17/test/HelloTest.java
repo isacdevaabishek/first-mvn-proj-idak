@@ -1,5 +1,4 @@
 package com.fssa.idak.day17.test;
-
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.Test;
