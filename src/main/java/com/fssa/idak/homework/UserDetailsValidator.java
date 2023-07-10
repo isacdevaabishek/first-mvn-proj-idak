@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 		if(obj==null) {
 			throw new IllegalArgumentException("Argument Cannot be null");
 		}	
-		ValidateEventName(obj.getEventName());
+		ValidateEventName(obj.getEventName());//
 		ValidateEventType(obj.getEventType());
 		ValidatePlace(obj.getPlace());
 		ValidateContactNo(obj.getContactNo());
@@ -35,13 +35,13 @@ import java.util.regex.Pattern;
 			return true;
 			
 		}
-		// Email validate
+
 		public static boolean ValidateEventType(String EventType) throws IllegalArgumentException {
-			if (EventType == null || "".equals(EventType.trim())) {
-				throw new IllegalArgumentException("UserName cannot be empty or null");
+			if (EventType == null || "".equals(EventType.trim())||EventType.length()<=2) {
+				throw new IllegalArgumentException("EventType cannot be empty or null and more than 2 chars");
 			}
 			
-			String nameregex= "^[A-Za-z]$";
+			String nameregex= "^[a-zA-Z]{3,}$";
 			Pattern pattern = Pattern.compile(nameregex);
 			Matcher matcher = pattern.matcher(EventType);
 			Boolean isMatch = matcher.matches();
@@ -53,19 +53,25 @@ import java.util.regex.Pattern;
 		}
 		// PhoneNumber validate
 		public static boolean ValidatePlace(String Place) throws IllegalArgumentException {
-			String nameregex= "^[A-Za-z]$";
+			if (Place == null || "".equals(Place.trim())) {
+				throw new IllegalArgumentException("Place cannot be empty or null");
+			}
+			String nameregex= "^[A-Za-z]{3,}$";
 			Pattern pattern = Pattern.compile(nameregex);
 			Matcher matcher = pattern.matcher(Place);
 			Boolean isMatch = matcher.matches();
-			if (isMatch) {
+			
+
+			if (isMatch) {//"null"
 				return true;
 			} else {
 				throw new IllegalArgumentException("Place is: Invalid");
 			}
+			
 		}
 		// Pincode validate
 		public static boolean ValidateContactNo(String ContactNo) throws IllegalArgumentException {
-			String regex = "^[1-9][0-9]{10}$";
+			String regex = "^[1-9][0-9]{9}$";//9
 			Pattern pattern = Pattern.compile(regex);
 			
 			Matcher matcher = pattern.matcher(ContactNo);
@@ -100,12 +106,12 @@ import java.util.regex.Pattern;
 public class UserDetailsValidator{
 	public static void main(String [] args) {
 		UserInfo obj=new UserInfo();
-		obj.setEventName("Product Donation");
-		LocalDate input=LocalDate.of(2023,10, 10);
+		obj.setEventName("ProductDonation");
+		LocalDate input=LocalDate.of(2023,10,10);
 		obj.setEventDate(input);
 		obj.setContactNo("7305836758");
-		obj.setPlace("Island Ground");
+		obj.setPlace("IslandGround");
 		obj.setEventType("Donation");
-	    Validator.validate(obj);
+	    System.out.println(Validator.validate(obj));
 	}
 }

@@ -19,7 +19,7 @@ public class UserValidatorTest {
     		Assertions.fail("Failed");
     	}
 	catch(IllegalArgumentException ex) {
-		Assertions.assertEquals("Name cannot be empty or null",
+		Assertions.assertEquals("UserName cannot be empty or null",
 				ex.getMessage());
 	}
     }
@@ -49,19 +49,43 @@ public void testValidEventTypeNull() {
 		Assertions.fail("Failed");
 	}
 catch(IllegalArgumentException ex) {
-	Assertions.assertEquals("EventType cannot be empty or null",
+	Assertions.assertEquals("EventType cannot be empty or null and more than 2 chars",
 			ex.getMessage());
 }
 }
 @Test
+public void testobj() {
+	UserInfo testobj=new UserInfo();
+	testobj.setEventName("ProductDonation");
+	LocalDate input=LocalDate.of(2023,10, 10);
+	testobj.setEventDate(input);
+	testobj.setContactNo("1234567890");
+	testobj.setPlace("IslandGround");
+	testobj.setEventType("Donation");
+	Assertions.assertTrue(Validator.validate(testobj));
+	
+}
+@Test
+public void testobjnull() {
+	try {
+		Validator.validate(null);
+	}
+	catch(IllegalArgumentException ex) {
+		Assertions.assertEquals("Argument Cannot be null",
+				ex.getMessage());
+	}
+	
+}
+@Test
+
 public void testValidEventTypeOnechar() {
 	
 	try {
-		Validator.ValidateEventType("a");
+		Validator.ValidateEventType("");
 		Assertions.fail("Failed");
 	}
 catch(IllegalArgumentException ex) {
-	Assertions.assertEquals("The EventType is: Invalid",
+	Assertions.assertEquals("EventType cannot be empty or null and more than 2 chars",
 			ex.getMessage());
 }
 	
@@ -70,8 +94,21 @@ catch(IllegalArgumentException ex) {
 
 @Test
 	public void testValidPhoneNumber() {
-		Assertions.assertTrue(Validator.ValidateContactNo("9095297688l"));
+		Assertions.assertTrue(Validator.ValidateContactNo("1234567890"));
 	}
+@Test
+public void testInValidPhoneNumber() {
+	
+	try {
+		Validator.ValidateContactNo("98398347");
+		Assertions.fail("Failed");
+	}
+catch(IllegalArgumentException ex) {
+	Assertions.assertEquals("Contact is: Invalid",
+			ex.getMessage());
+}
+	
+    }
 	
 
 @Test
@@ -80,12 +117,62 @@ catch(IllegalArgumentException ex) {
 	
 		Assertions.assertTrue(Validator.ValidateEventDate(input));
 	}
+@Test
+public void testInValidEventDate() {
+	
+	try {
+		LocalDate input=LocalDate.of(2023,12, 10);//valid
+		Assertions.assertTrue(Validator.ValidateEventDate(input));//true
+		Assertions.fail("Failed");
+		
+	}
+catch(IllegalArgumentException ex) {
+	Assertions.assertEquals("Invalid Date Date Should be YYYY-MM-DD",
+			ex.getMessage());
+}
+	
+    }
+@Test
+public void testValidEventPlaceNull() {
+	try {
+		Validator.ValidateEventName("");
+		Assertions.fail("Failed");
+	}
+catch(IllegalArgumentException ex) {
+	Assertions.assertEquals("UserName cannot be empty or null",
+			ex.getMessage());
+}
+}
+	
 	
 
 @Test
 	public void testValidPlace() {
-		Assertions.assertTrue(Validator.ValidatePlace("Tirunelveli"));
+		Assertions.assertTrue(Validator.ValidatePlace("tirunelveli"));
 	}
+@Test
+   void testValidPlaceNull() {
+	try {
+		Validator.ValidatePlace(null);
+		Assertions.fail("Failed");
+	}
+catch(IllegalArgumentException ex) {
+	Assertions.assertEquals("Place cannot be empty or null",
+			ex.getMessage());
+}
+}
+@Test
+public void testValidEventPlaceOnechar() {
 	
+	try {
+		Validator.ValidatePlace("a");
+		Assertions.fail("Failed");
+	}
+catch(IllegalArgumentException ex) {
+	Assertions.assertEquals("Place is: Invalid",
+			ex.getMessage());
+}
+	
+    }
 
 }
