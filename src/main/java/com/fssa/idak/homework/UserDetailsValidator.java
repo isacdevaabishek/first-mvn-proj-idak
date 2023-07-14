@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 		public static boolean ValidateEventName(String EventName)throws IllegalArgumentException {
 			if (EventName == null || "".equals(EventName.trim())) {
 				throw new IllegalArgumentException("UserName cannot be empty or null");
-			}
+			} 
 			
 			String nameregex=  "^[a-zA-Z]{3,}$";
 			Pattern pattern = Pattern.compile(nameregex);

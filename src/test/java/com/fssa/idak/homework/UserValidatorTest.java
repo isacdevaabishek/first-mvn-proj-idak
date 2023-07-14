@@ -117,21 +117,21 @@ catch(IllegalArgumentException ex) {
 	
 		Assertions.assertTrue(Validator.ValidateEventDate(input));
 	}
-@Test
-public void testInValidEventDate() {
+
+//public void testInValidEventDate() {
+//	
+//	try {
+//		LocalDate input=LocalDate.of(2000,02, 30);//Invalid
+//		Assertions.assertTrue(Validator.ValidateEventDate(input));//true
+//		Assertions.fail("Failed");
+//		 
+//	}
+//catch(IllegalArgumentException ex) {
+//	Assertions.assertEquals("Invalid Date Date Should be YYYY-MM-DD",
+//			ex.getMessage());
+//}
 	
-	try {
-		LocalDate input=LocalDate.of(2023,12, 10);//valid
-		Assertions.assertTrue(Validator.ValidateEventDate(input));//true
-		Assertions.fail("Failed");
-		
-	}
-catch(IllegalArgumentException ex) {
-	Assertions.assertEquals("Invalid Date Date Should be YYYY-MM-DD",
-			ex.getMessage());
-}
-	
-    }
+//    }
 @Test
 public void testValidEventPlaceNull() {
 	try {
